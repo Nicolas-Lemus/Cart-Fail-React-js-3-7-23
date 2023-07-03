@@ -1,44 +1,23 @@
-/* import React from "react";
+import { Link } from 'react-router-dom';
+import '../Card/Card.css';
 
-
-const CartDetailCard = ({ product, qty }) => {
+const CartDetailCard = ({product}) => {
+  
   return (
-    <div >
-        <div >
-          <div>
-            <img alt={product.title} />
-          </div>
-          <div>
-            <h2>{product.title}</h2>
-            <p>{product.description}</p>
-            Precio: ${product.price}
-            <p>Cantidad:{qty.qty}</p>
-          </div>
+    <div className="divPadre">
+      <div className='Cards'>
+        <div className='Card'>
+            <div className='Title'>{product.title}</div>
+            <div className='Images'>
+              <Link to={`/products/${product.id}`}><img src={product.images} alt="productos-disponibles"/></Link>
+            </div>
+            <div className='Previous'>{product.previous_price}</div>
+            <div className='Price'>${product.price}</div>
+            <div className='Stock'>{product.stock}</div>
+        </div>
         </div>
     </div>
   );
-};
+}
 
-export default CartDetailCard; */
-
-import React from "react";
-
-const CartDetailCard = ({  product ,qty}) => {
-  return (
-    <div>
-      <div>
-        <div>
-          <img alt={product.title} src={product.images} />
-        </div>
-        <div>
-          <h2>{product.title}</h2>
-          Precio: ${product.price}
-          <p>Cantidad: 
-            {qty}</p>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default CartDetailCard;
+export default CartDetailCard

@@ -23,7 +23,7 @@ const Products = () => {
             snapshot.docs.map((doc)=>({ id: doc.id, ...doc.data() }))
             );
         })
-        .catch((error)=> setError(true))
+        .catch(()=> setError(true))
         .then(()=> setLoading(false));
     }, []);
 

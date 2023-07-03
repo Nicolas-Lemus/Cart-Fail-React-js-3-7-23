@@ -10,8 +10,7 @@ const itemListContainer = ({productsData}) => {
         <div>
             <Headers HeadersH1="Productos"/>
             <div className='divPadre'>
-                {
-                    productsData.map(producto =>{
+                {productsData.map(producto =>{
                         return(
                             <Card key={producto.id} productsData={producto}/>
                         )
