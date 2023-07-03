@@ -1,61 +1,8 @@
-/* import React, { useContext, useState } from "react";
-import { Button } from "react-bootstrap";
-import { CardContext } from "../../context/CartContext";
-import "./CardButtons.css"
-
-const CartButtons = () => {
-  //DEBEMOS PASARLO COMO UN ARRAY
-  const [count, setCount] = useContext(CardContext);
-  const [state, setState] = useState(0);
-
-  const handleClick = () => {
-    setCount(count + 1)
-    setState(state + 1);
-  };
-  
-  const handleClickRes = () => {
-    if (count > 0) {
-      setCount(count - 1);
-    }
-    if (state > 0) {
-      setState(state - 1);
-    }
-  };
-
-  return (
-    <div className="d-flex align-items-center">
-      <div className="w-25">
-        <Button
-          variant="outline-secondary"
-          className="rounded-0"
-          onClick={handleClickRes}
-        > 
-        -
-        </Button>
-        <span className="spamPrecio">{state}</span>
-        <Button
-          variant="outline-secondary"
-          className="rounded-0"
-          onClick={handleClick}
-        >
-        +
-        </Button>
-      </div>
-      <Button className="ml-2" variant="primary">
-        Agregar al Carrito
-      </Button>
-    </div>
-  );
-};
-
-export default CartButtons;
- */
-
 import React, { useContext, useState } from "react";
 import { Button } from "react-bootstrap";
 import { CartContext } from "../../context/CartContext";
 
-const CartButtons = ({ customStyle, productId}) => {
+const CartButtons = ({ customStyle, productId }) => {
   const [state, setState] = useState(1);
   const { count, setCount } = useContext(CartContext);
 
@@ -67,27 +14,34 @@ const CartButtons = ({ customStyle, productId}) => {
     setState(state - 1);
   };
 
-  const addToCart = () => { 
-
-
-    const existingProduct = count.products.find(
+  const addToCart = () => {
+    const existingProductIndex = count.Tecnologia.findIndex(
       (p) => p.productId === productId
     );
-    if (existingProduct) {
-      existingProduct.qty += state;
+
+    if (existingProductIndex !== -1) {
+      const updatedProducts = [...count.Tecnologia];
+      updatedProducts[existingProductIndex].qty += state;
+
+      setCount((prevState) => ({
+        ...prevState,
+        qtyItems: prevState.qtyItems + state,
+        Tecnologia: updatedProducts,
+      }));
     } else {
       const newProduct = {
         productId,
         qty: state,
       };
+
       setCount((prevState) => ({
-        
+        ...prevState,
         qtyItems: prevState.qtyItems + state,
-        products: [...prevState.products, newProduct],
+        Tecnologia: [...prevState.Tecnologia, newProduct],
       }));
     }
-  };
-
+  };  
+  
   return (
     <div
       style={{
@@ -114,11 +68,7 @@ const CartButtons = ({ customStyle, productId}) => {
           +
         </Button>
       </div>
-      <Button
-        className="ml-2"
-        variant={customStyle}
-        onClick={addToCart}
-      >
+      <Button className="ml-2" variant={customStyle} onClick={addToCart}>
         Agregar al Carrito
       </Button>
     </div>

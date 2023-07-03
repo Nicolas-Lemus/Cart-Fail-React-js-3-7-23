@@ -27,7 +27,7 @@ const CartWidget = () => {
 
     console.log(count);
     //setear la base de datos Teacnologia en ves de products
-    setQty(count.products.reduce((total, product) => total + product.qty, 0));
+    setQty(count.Tecnologia.reduce((total, product) => total + product.qty, 0));
   },[count]);
 
     return (
